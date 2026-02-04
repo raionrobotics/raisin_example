@@ -1,0 +1,26 @@
+# Build directories
+build/
+cmake-build-*/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Compiled files
+*.o
+*.so
+*.a
+
+# Generated files
+compile_commands.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cache
+__pycache__/
+*.pyc
