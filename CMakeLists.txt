@@ -151,6 +151,9 @@ add_simple_example(example_pointcloud)
 # Control example
 add_simple_example(example_joy_control)
 
+# Network discovery example
+add_simple_example(example_connect)
+
 # ============================================================================
 # Install Targets
 # ============================================================================
@@ -158,6 +161,7 @@ add_simple_example(example_joy_control)
 install(TARGETS
     example_robot_state example_battery example_actuator_status
     example_odometry example_pointcloud example_joy_control
+    example_connect
     RUNTIME DESTINATION bin)
 install(DIRECTORY include/ DESTINATION include)
 
@@ -178,4 +182,5 @@ message(STATUS "                example_actuator_status")
 message(STATUS "                example_odometry")
 message(STATUS "                example_pointcloud")
 message(STATUS "                example_joy_control")
+message(STATUS "                example_connect")
 message(STATUS "")
