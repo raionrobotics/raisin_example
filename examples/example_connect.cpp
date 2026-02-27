@@ -1,5 +1,5 @@
 /**
- * @file example_connect_to_node.cpp
+ * @file example_connect.cpp
  * @brief Discover network nodes, connect, and list available messages
  *
  * This example demonstrates:
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
         "connect_example", "example", threads, netInterfaces);
     std::shared_ptr<Remote::Connection> connection;
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     std::cout << "Node discovery active. Use 'list' to see available connections.\n" << std::endl;
 
@@ -150,6 +150,7 @@ int main(int argc, char** argv) {
                 std::cout << "Connected to: " << tokens[1] << std::endl;
             } else {
                 std::cout << "Connection failed." << std::endl;
+                connection = nullptr;
             }
         } else if (cmd == "dis") {
             if (!connection) {
