@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
             }
             connection = network->connect(tokens[1]);
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
-            if (connection) {
+            if (connection && connection->connected) {
                 std::cout << "Connected to: " << tokens[1] << std::endl;
             } else {
                 std::cout << "Connection failed." << std::endl;
