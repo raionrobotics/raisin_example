@@ -305,7 +305,7 @@ enum class JoySourceType : int32_t {
 };
 
 /**
- * @brief Extended robot state with full information from robot_state topic
+ * @brief Extended robot state with full information from the robot/state topic
  */
 struct ExtendedRobotState {
     // Position and velocity
@@ -1385,7 +1385,7 @@ public:
     void subscribePointCloud(PointCloudCallback callback) {
         cloudCallback_ = callback;
         cloudSubscriber_ = node_->createSubscriber<raisin::sensor_msgs::msg::PointCloud2>(
-            "/cloud_registered", connection_,
+            "/slam/cloud_registered", connection_,
             [this](const raisin::sensor_msgs::msg::PointCloud2::SharedPtr& msg) {
                 std::vector<Point3D> points;
 
@@ -1423,7 +1423,7 @@ public:
                     cloudCallback_(latestCloud_);
                 }
             });
-        std::cout << "[RaisinClient] Subscribed to /cloud_registered" << std::endl;
+        std::cout << "[RaisinClient] Subscribed to /slam/cloud_registered" << std::endl;
     }
 
     /**
@@ -1432,7 +1432,7 @@ public:
     void subscribeRobotState(ExtendedRobotStateCallback callback) {
         extRobotStateCallback_ = callback;
         robotStateSubscriber_ = node_->createSubscriber<raisin::raisin_interfaces::msg::RobotState>(
-            "robot_state", connection_,
+            "robot/state", connection_,
             [this](const raisin::raisin_interfaces::msg::RobotState::SharedPtr& msg) {
                 ExtendedRobotState state;
 
@@ -1485,7 +1485,7 @@ public:
                     extRobotStateCallback_(state);
                 }
             });
-        std::cout << "[RaisinClient] Subscribed to robot_state" << std::endl;
+        std::cout << "[RaisinClient] Subscribed to robot/state" << std::endl;
     }
 
     // ========================================================================
@@ -1569,7 +1569,7 @@ private:
     void ensureJoyClient() {
         if (!setJoyListenClient_) {
             setJoyListenClient_ = node_->createClient<raisin::raisin_interfaces::srv::String>(
-                "set_listen", connection_);
+                "robot/select_command_source", connection_);
         }
     }
 
@@ -1583,11 +1583,11 @@ private:
     void ensureLocomotionClients() {
         if (!standUpClient_) {
             standUpClient_ = node_->createClient<raisin::std_srvs::srv::Trigger>(
-                "stand_up", connection_);
+                "robot/stand_up", connection_);
         }
         if (!sitDownClient_) {
             sitDownClient_ = node_->createClient<raisin::std_srvs::srv::Trigger>(
-                "sit_down", connection_);
+                "robot/sit_down", connection_);
         }
     }
 
@@ -1613,11 +1613,11 @@ private:
     void ensureGraphClients() {
         if (!saveGraphFileClient_) {
             saveGraphFileClient_ = node_->createClient<raisin::raisin_interfaces::srv::SaveGraphFile>(
-                "save_graph_file", connection_);
+                "slam/save_graph_file", connection_);
         }
         if (!loadGraphFileClient_) {
             loadGraphFileClient_ = node_->createClient<raisin::raisin_interfaces::srv::LoadGraphFile>(
-                "load_graph_file", connection_);
+                "slam/load_graph_file", connection_);
         }
     }
 
@@ -1628,7 +1628,7 @@ private:
         }
         if (!listMapFilesClient_) {
             listMapFilesClient_ = node_->createClient<raisin::raisin_interfaces::srv::ListFiles>(
-                "list_map_files", connection_);
+                "slam/list_map_files", connection_);
         }
     }
 
